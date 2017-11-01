@@ -1,3 +1,13 @@
-document.write('<div>hello react</div>');
-document.write(`<img src='./app/image/cart@2x.png' style="width: 100px;height: 100px"> `);
-console.log(4445);
+import React from 'react'
+import { render } from 'react-dom'
+import { Router, browserHistory } from 'react-router'
+import routes from './app/routes'
+import './app/assets/css/reset.css' 
+import './app/assets/css/root.css'
+
+render(
+    <div className="root">
+      <Router history={browserHistory} routes={routes}/>
+    </div>,
+    document.getElementsByTagName('body')[0]
+  )
