@@ -1,10 +1,28 @@
-var path = require('path')
-
+var path = require('path');
+var webpack = require('webpack');
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+var HtmlwebpackPlugin = require('html-webpack-plugin');
 module.exports = {
-  entry: './root.js',
+  devServer: {
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+    progress: true,
+    contentBase: './dist',
+    port: 8080
+  },
+  entry:[
+    'webpack/hot/dev-server',
+    'webpack-dev-server/client?http://127.0.0.1:8080',
+    './root.js'
+  ],
   output: {
     path: path.join(__dirname, 'dist'),
+    publicPath: '/',
     filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
   },
   module: {
     loaders: [
@@ -23,6 +41,14 @@ module.exports = {
     ]
   },
   plugins: [
-    
+    new HtmlwebpackPlugin({
+      title: 'react',
+      filename: 'index.html',
+      hash: true
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new OpenBrowserPlugin({
+      url: 'http://127.0.0.1:8080'
+    })
   ]
 };
